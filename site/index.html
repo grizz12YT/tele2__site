@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Маршруты Удмуртии</title>
+</head>
+<body>
+    <section class="background">
+        <header class="header">
+            <div class="nav__header container">
+                <a href="#" class="link__logo__nav__header"><img src="img/logo.caf05db1.gif" alt="" class="logo__nav__header"></a>
+                <div class="nav__list__header__block">
+                    <ul class="nav__list__header">
+                        <li class="nav__item__list"><a href="#" class="link__nav__list__header">Главная</a></li>
+                        <li class="nav__item__list"><a href="#" class="link__nav__list__header">Популярные маршруты</a></li>
+                        <li class="nav__item__list"><a href="#" class="link__nav__list__header">Описание</a></li>
+                        <li class="nav__item__list"><a href="#" class="link__nav__list__header">Конфигуратор</a></li>
+                    </ul>
+                </div>
+                <div class="num__header"><p class="num__text__header">+7(999)918-24-60</p></div>
+            </div>
+        </header>
+        <section class="one__list container">
+            <h1 class="header__one__list">Республика Удмуртия. Живи настоящим</h1>
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide">
+                        <img src="img/izevsk.png">
+                        <div class="info">
+                            <h1 class="city">Ижевск</h1>
+                            <h4 class="information">Столица Удмуртии и оружейная столица России.</h4>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/votkinsk.png">
+                        <div class="info">
+                            <h1 class="city">Воткинск</h1>
+                            <h4 class="information">Промышленный город в Удмуртии, место рождения П. И. Чайковского.</h4>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/sarapul.png">
+                        <div class="info">
+                            <h1 class="city">Сарапул</h1>
+                            <h4 class="information">Город в Удмуртии на берегу Камы, третий по численности в республике.</h4>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/glazov.png">
+                        <div class="info">
+                            <h1 class="city">Глазов</h1>
+                            <h4 class="information">Второй по значимости промышленный центр Удмуртии.</h4>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/mozga.png">
+                        <div class="info">
+                            <h1 class="city">Можга</h1>
+                            <h4 class="information">Город в Удмуртской Республике, крупный индустриальный и культурный центр юго‑запада региона.</h4>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/kambarka.png">
+                        <div class="info">
+                            <h1 class="city">Камбарка</h1>
+                            <h4 class="information">Город в Удмуртии, административный центр Камбарского района.</h4>
+                        </div>
+                    </div>
+                </div>
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+        </section>
+        <script src="js/script.js"></script>
+        
+        <section class="list__configurator">
+            <div class="t2-routes container">
+                <div class="t2-routes-container">
+                    <div class="t2-routes-header">
+                        <h2 class="t2-routes-title">
+                            <i class="fas fa-map-marked-alt"></i> Маршруты по Удмуртии
+                        </h2>
+                        <p class="t2-routes-subtitle">Исторические, гастрономические, природные и волонтёрские путешествия по родному краю</p>
+                    </div>
+
+                    <div class="t2-filters">
+                        <div class="t2-filters-grid">
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-clock"></i> Длительность</label>
+                                <select class="t2-filter-select" id="t2-filter-duration">
+                                    <option value="all">Все</option>
+                                    <option value="1">1 день</option>
+                                    <option value="2">2 дня</option>
+                                    <option value="3">3+ дней</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-car"></i> Тип</label>
+                                <select class="t2-filter-select" id="t2-filter-type">
+                                    <option value="all">Все</option>
+                                    <option value="Автомобильный">Автомобильный</option>
+                                    <option value="Автобусный">Автобусный</option>
+                                    <option value="Пеший">Пеший</option>
+                                    <option value="Водный">Водный</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-tag"></i> Категория</label>
+                                <select class="t2-filter-select" id="t2-filter-category">
+                                    <option value="all">Все</option>
+                                    <option value="Волонтёрский">Волонтёрский</option>
+                                    <option value="Исторический">Исторический</option>
+                                    <option value="Природный">Природный</option>
+                                    <option value="Экологический">Экологический</option>
+                                    <option value="Этнографический">Этнографический</option>
+                                    <option value="Гастрономический">Гастрономический</option>
+                                    <option value="Культурный">Культурный</option>
+                                    <option value="Архитектурный">Архитектурный</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-child"></i> Дети</label>
+                                <select class="t2-filter-select" id="t2-filter-kids">
+                                    <option value="all">Все</option>
+                                    <option value="true">Можно с детьми</option>
+                                    <option value="false">Только взрослые</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-paw"></i> Животные</label>
+                                <select class="t2-filter-select" id="t2-filter-pets">
+                                    <option value="all">Все</option>
+                                    <option value="true">Можно с животными</option>
+                                    <option value="false">Нельзя</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item">
+                                <label class="t2-filter-label"><i class="fas fa-coins"></i> Бюджет</label>
+                                <select class="t2-filter-select" id="t2-filter-budget">
+                                    <option value="all">Все</option>
+                                    <option value="Эконом">Эконом</option>
+                                    <option value="Средний">Средний</option>
+                                </select>
+                            </div>
+                            <div class="t2-filter-item t2-filter-action">
+                                <button class="t2-reset-btn" id="t2-reset-filters"><i class="fas fa-undo-alt"></i> Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="t2-counter">
+                        <span id="t2-count">0</span> маршрутов найдено
+                    </div>
+
+                    <div class="t2-grid" id="t2-grid">
+                        <div class="t2-loader"><i class="fas fa-spinner fa-pulse"></i> Загрузка маршрутов...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rate__three__list container">
+                <h1 class="header__rate__three">Отзывы клиентов</h1>
+    <div class="reviews-wrapper" id="reviews-container"></div>
+
+    <script>
+        function renderStars(rating) {
+        let html = "";
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+            html += '<span class="star filled">★</span>';
+            } else {
+            html += '<span class="star">★</span>';
+            }
+        }
+        return html;
+        }
+
+        async function loadReviews() {
+        const response = await fetch("reviews.json");
+        return await response.json();
+        }
+
+        function getRandomItems(arr, count) {
+        const shuffled = [...arr].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, count);
+        }
+
+        function renderCards(container, reviews) {
+        // помечаем старые карточки как fade-out
+        const oldCards = container.querySelectorAll(".review-card");
+        oldCards.forEach(card => {
+            card.classList.add("fade-out");
+        });
+
+        // после анимации — заменяем DOM
+        setTimeout(() => {
+            container.innerHTML = "";
+
+            reviews.forEach(review => {
+            const card = document.createElement("div");
+            card.className = "review-card";
+
+            card.innerHTML = `
+                <div class="review-author">${review.author}</div>
+                <div class="review-rating">
+                Рейтинг: 
+                <span class="stars">${renderStars(review.rating)}</span>
+                </div>
+                <div class="review-text">${review.text}</div>
+            `;
+
+            container.appendChild(card);
+            });
+        }, 400); // 0.4s — время подходит под transition: 0.5s ease
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+        const container = document.getElementById("reviews-container");
+        const allReviews = await loadReviews();
+
+        // первые 3 отзыва
+        const first3 = getRandomItems(allReviews, 3);
+        renderCards(container, first3);
+
+        // каждые 5 секунд отзывы плавно меняются
+        const intervalMs = 5000;
+        setInterval(() => {
+            const random3 = getRandomItems(allReviews, 3);
+            renderCards(container, random3);
+        }, intervalMs);
+        });
+    </script>
+        </section>
+    </section>
+
+
+    <script>
+    (async function() {
+        const container = document.getElementById('t2-grid');
+        const countSpan = document.getElementById('t2-count');
+        
+        let routesData = [];
+
+        try {
+            const response = await fetch('routes.json');
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            routesData = await response.json();
+            console.log('Загружено маршрутов:', routesData.length);
+        } catch (error) {
+            console.error('Ошибка:', error);
+            if (container) container.innerHTML = '<div class="t2-no-results"><i class="fas fa-exclamation-triangle"></i><br>Ошибка загрузки маршрутов. Убедитесь что файл json/6routes.json существует</div>';
+            return;
+        }
+
+        const durationFilter = document.getElementById('t2-filter-duration');
+        const typeFilter = document.getElementById('t2-filter-type');
+        const categoryFilter = document.getElementById('t2-filter-category');
+        const kidsFilter = document.getElementById('t2-filter-kids');
+        const petsFilter = document.getElementById('t2-filter-pets');
+        const budgetFilter = document.getElementById('t2-filter-budget');
+        const resetBtn = document.getElementById('t2-reset-filters');
+
+        function filterRoutes() {
+            let filtered = [...routesData];
+
+            const durationVal = durationFilter?.value || 'all';
+            const typeVal = typeFilter?.value || 'all';
+            const categoryVal = categoryFilter?.value || 'all';
+            const kidsVal = kidsFilter?.value || 'all';
+            const petsVal = petsFilter?.value || 'all';
+            const budgetVal = budgetFilter?.value || 'all';
+
+            if (durationVal !== 'all') {
+                filtered = filtered.filter(route => {
+                    const dur = route.duration;
+                    if (durationVal === '1') return dur === '1 день' || dur === 'Полдня';
+                    if (durationVal === '2') return dur === '2 дня' || dur === '2-3 дня';
+                    if (durationVal === '3') return dur === '3 дня' || dur === '3-4 дня';
+                    return false;
+                });
+            }
+
+            if (typeVal !== 'all') {
+                filtered = filtered.filter(route => route.type.includes(typeVal));
+            }
+
+            if (categoryVal !== 'all') {
+                filtered = filtered.filter(route => route.category.includes(categoryVal));
+            }
+
+            if (kidsVal !== 'all') {
+                filtered = filtered.filter(route => route.kids === (kidsVal === 'true'));
+            }
+
+            if (petsVal !== 'all') {
+                filtered = filtered.filter(route => route.pets === (petsVal === 'true'));
+            }
+
+            if (budgetVal !== 'all') {
+                filtered = filtered.filter(route => route.budget === budgetVal);
+            }
+
+            filtered.sort((a, b) => {
+                const aIsVol = a.category.includes('Волонтёрский');
+                const bIsVol = b.category.includes('Волонтёрский');
+                if (aIsVol && !bIsVol) return -1;
+                if (!aIsVol && bIsVol) return 1;
+                return a.id - b.id;
+            });
+
+            return filtered;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function render() {
+            const filtered = filterRoutes();
+            if (countSpan) countSpan.textContent = filtered.length;
+            if (!container) return;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="t2-no-results">
+                        <i class="fas fa-map-marked-alt"></i><br>
+                        <strong>Ничего не найдено</strong><br>
+                        <span style="font-size: 14px;">Попробуйте изменить параметры поиска</span>
+                        <div class="t2-suggestions">
+                            <div class="t2-suggestions-title"><i class="fas fa-lightbulb"></i> Возможно, вам понравится:</div>
+                            <div class="t2-suggestion-btns">
+                                <button class="t2-suggestion-btn" onclick="document.getElementById('t2-reset-filters')?.click()">Смотреть все маршруты</button>
+                                <button class="t2-suggestion-btn" onclick="document.getElementById('t2-filter-category').value='Волонтёрский'; document.getElementById('t2-filter-category').dispatchEvent(new Event('change'))">Волонтёрские</button>
+                                <button class="t2-suggestion-btn" onclick="document.getElementById('t2-filter-budget').value='Эконом'; document.getElementById('t2-filter-budget').dispatchEvent(new Event('change'))">Эконом</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(route => {
+                const budgetClass = route.budget === 'Эконом' ? 't2-badge-budget-econom' : 't2-badge-budget-medium';
+                
+                const categories = route.category.split(', ').map(cat => 
+                    cat === 'Волонтёрский' 
+                        ? '<span class="t2-badge t2-badge-volunteer"><i class="fas fa-heart"></i> Волонтёрский</span>'
+                        : `<span class="t2-badge">${escapeHtml(cat)}</span>`
+                ).join('');
+                
+                const imagePath = route.image ? route.image : 'img/routes/default.jpg';
+                
+                return `
+                    <div class="t2-card">
+                        <img class="t2-card-img" src="${escapeHtml(imagePath)}" alt="${escapeHtml(route.title)}" onerror="this.src='img/routes/default.jpg'">
+                        <div class="t2-card-header">
+                            <h3 class="t2-card-title">${escapeHtml(route.title)}</h3>
+                            <div class="t2-card-badges">
+                                <span class="t2-badge ${budgetClass}">${route.budget}</span>
+                                ${categories}
+                            </div>
+                        </div>
+                        <div class="t2-card-body">
+                            <p class="t2-card-desc">${escapeHtml(route.description)}</p>
+                            <div class="t2-card-meta">
+                                <span class="t2-meta-item"><i class="fas fa-clock"></i> ${route.duration}</span>
+                                <span class="t2-meta-item"><i class="fas fa-car"></i> ${route.type}</span>
+                                ${route.kids ? '<span class="t2-meta-item"><i class="fas fa-child"></i> С детьми</span>' : '<span class="t2-meta-item"><i class="fas fa-user-slash"></i> Без детей</span>'}
+                                ${route.pets ? '<span class="t2-meta-item"><i class="fas fa-paw"></i> С питомцами</span>' : '<span class="t2-meta-item"><i class="fas fa-ban"></i> Без животных</span>'}
+                            </div>
+                        </div>
+                        <div class="t2-card-footer">
+                            <div class="t2-coords"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(route.coords)}</div>
+                            <button class="t2-btn" onclick="alert('Маршрут: ${escapeHtml(route.title)}\\nЛокация: ${escapeHtml(route.coords)}')"><i class="fas fa-info-circle"></i> Подробнее</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        if (durationFilter) durationFilter.addEventListener('change', render);
+        if (typeFilter) typeFilter.addEventListener('change', render);
+        if (categoryFilter) categoryFilter.addEventListener('change', render);
+        if (kidsFilter) kidsFilter.addEventListener('change', render);
+        if (petsFilter) petsFilter.addEventListener('change', render);
+        if (budgetFilter) budgetFilter.addEventListener('change', render);
+        if (resetBtn) resetBtn.addEventListener('click', () => {
+            const selects = document.querySelectorAll('.t2-filter-select');
+            selects.forEach(select => select.value = 'all');
+            render();
+        });
+
+        render();
+    })();
+    </script>
+</body>
+</html>
