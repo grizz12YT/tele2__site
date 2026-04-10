@@ -25,7 +25,7 @@
             </div>
         </header>
         <section class="one__list container">
-            <h1 class="header__one__list">Республика Удмуртия. Живи настоящим</h1>
+            <h1 class="header__one__list">Удмуртская Республика. Живи настоящим</h1>
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
@@ -165,7 +165,6 @@
         <section class="rate__three__list container">
                 <h1 class="header__rate__three">Отзывы клиентов</h1>
     <div class="reviews-wrapper" id="reviews-container"></div>
-
     <script>
         function renderStars(rating) {
         let html = "";
@@ -235,7 +234,199 @@
         });
     </script>
         </section>
+        <section class="registra container">
+            <h1 class="header__reg">Подать заявку на маршрут</h1>
+
+  <form id="bookingForm" class="ishak">
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="fullName">ФИО</label>
+      <input class="udmurtInput" type="text" id="fullName" name="fullName" required />
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="phone">Телефон</label>
+      <input class="udmurtInput" type="tel" id="phone" name="phone" required />
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="email">Email</label>
+      <input class="udmurtInput" type="email" id="email" name="email" required />
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="routeId">Маршрут</label>
+      <select class="udmurtSelect" id="routeId" name="routeId" required>
+        <option value="">Выберите маршрут</option>
+        <option value="1">В Ижевск на выходные</option>
+        <option value="2">Ожерелье Камы (межрегиональный)</option>
+        <option value="3">Влюбиться в Удмуртию!</option>
+        <option value="4">Древнее городище «Иднакар»</option>
+        <option value="5">Музей‑усадьба «Лудорвай»</option>
+        <option value="6">Экотропа «Наедине с лесом»</option>
+        <option value="7">Экотропа «Книга природы»</option>
+        <option value="8">Купеческий Сарапул</option>
+        <option value="9">Музей‑усадьба П.И. Чайковского</option>
+        <option value="10">Северная столица — Глазов</option>
+        <option value="11">Помощь в деревне Сеп</option>
+        <option value="12">Посади лес в Нечкинском парке</option>
+        <option value="13">1000 шагов в природу</option>
+        <option value="14">Бурановские бабушки</option>
+        <option value="15">Абатские пещеры и каньоны</option>
+        <option value="16">Зеувы ключи</option>
+        <option value="17">Этнокомплекс Бобровая долина</option>
+        <option value="18">Волонтёры лесопарка «Дубрава»</option>
+        <option value="19">Волонтёры Памяти в Воткинске</option>
+        <option value="20">Экологические дружины Нечкинского парка</option>
+        <option value="21">Арт‑кластер «Камская набережная»</option>
+        <option value="22">Живописный маршрут по Каме от Воткинского моря</option>
+        <option value="23">Этнодеревня «Клюшар»</option>
+        <option value="24">Ночная прогулка по крышам Ижевска</option>
+      </select>
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="date">Желаемая дата поездки</label>
+      <input class="udmurtInput" type="date" id="date" name="date" required />
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="passengers">Количество человек</label>
+      <input class="udmurtInput" type="number" id="passengers" name="passengers" min="1" value="1" required />
+    </div>
+
+    <div class="udmurtFormGroup">
+      <label class="udmurtLabel" for="comment">Комментарий / пожелания</label>
+      <textarea class="udmurtTextarea" id="comment" name="comment"></textarea>
+    </div>
+
+    <button class="udmurtButton" type="submit">Отправить заявку</button>
+  </form>
+
+  <div id="status"></div>
+
+  <script>
+    const formEl = document.getElementById("bookingForm");
+    const statusEl = document.getElementById("status");
+
+    function formToJson(form) {
+      const data = new FormData(form);
+      const obj = {};
+      for (const [key, value] of data.entries()) {
+        obj[key] = value;
+      }
+      return obj;
+    }
+
+    function addMeta(data, id) {
+      return {
+        ...data,
+        id: id,
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    function saveBookingsToJson() {
+      const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+      const jsonData = JSON.stringify(allBookings, null, 2);
+      
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bookings_${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function showDownloadButton() {
+      let downloadBtn = document.getElementById('downloadBtn');
+    }
+
+    async function sendBooking(data) {
+      try {
+        const resp = await fetch("/api/add-booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (resp.ok) {
+          statusEl.innerHTML = `
+            <div class="udmurtSuccess">
+              ✅ Заявка успешно добавлена!<br>
+              Данные сохранены локально и на сервере.
+            </div>
+          `;
+        } else {
+          statusEl.innerHTML = `
+            <div class="udmurtSuccess">
+              ✅ Заявка сохранена в localStorage!<br>
+              Сервер временно недоступен.
+            </div>
+          `;
+        }
+      } catch (err) {
+        statusEl.innerHTML = `
+          <div class="udmurtSuccess">
+            ✅ Заявка сохранена локально в localStorage!<br>
+            Сервер недоступен: ${err.message}
+          </div>
+        `;
+      }
+      
+      showDownloadButton();
+      formEl.reset();
+    }
+
+    formEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      if (!formEl.checkValidity()) {
+        statusEl.innerHTML = `
+          <div class="udmurtError">
+            ❌ Пожалуйста, заполните все обязательные поля.
+          </div>
+        `;
+        return;
+      }
+
+      const rawJson = formToJson(formEl);
+      const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+      const newId = allBookings.length ? Math.max(...allBookings.map(b => b.id)) + 1 : 1;
+      const finalJson = addMeta(rawJson, newId);
+
+      allBookings.push(finalJson);
+      localStorage.setItem("bookings", JSON.stringify(allBookings));
+
+      await sendBooking(finalJson);
+    });
+  </script>
+        </section>
     </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <script>
